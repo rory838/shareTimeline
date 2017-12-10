@@ -1,0 +1,6 @@
+{
+    "require": {
+        "scheb/yahoo-finance-api": "^3.0",
+        "jpgraph/jpgraph": "^4.0"
+    }
+}
