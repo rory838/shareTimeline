@@ -18,7 +18,7 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 ## Acknowledgments
 
 * Hat tip to anyone who's code was used
-* **Christian Scheb** - *Initial library and example code the project is based on* - [scheb](https://github.com/scheb)
+* **Christian Scheb** - *Initial library and example code the project is based on* - [scheb](https://github.com/scheb/yahoo-finance-api)
 
 * Inspiration
 * $father$
