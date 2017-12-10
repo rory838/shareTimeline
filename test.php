@@ -68,6 +68,9 @@ if(!empty($_GET)) {
 		$historicalData2 = $client->getHistoricalData($share, ApiClient::INTERVAL_1_DAY, new \DateTime("-30 days"), new \DateTime("today"));
 
 		$historicalData3 = $client->getHistoricalData($share, ApiClient::INTERVAL_1_DAY, new \DateTime("-90 days"), new \DateTime("today"));
+
+                $historicalData4 = $client->getHistoricalData($share, ApiClient::INTERVAL_1_DAY, new \DateTime("-1 year"), new \DateTime("today"));
+
 	}
 	catch(Exception $e){
 		if(strpos($e, 'Client error') !== false){
@@ -85,7 +88,7 @@ else{
 }
 echo("<h1>Showing values for " . $searchResult[0]->getName() . " [" . $searchResult[0]->getSymbol() . "](" . $item->getTypeDisp() .")</h1>");
 
-?><div id="chart1" style="margin-top:0px; margin-left:0px; width:800px; height:300px;"></div>
+?><div id="chart1" style="margin-top:0px; margin-left:0px; width:900px; height:300px;"></div>
 <script class="code" type="text/javascript">
 $(document).ready(function(){
 	var line1 = [<?php
@@ -115,7 +118,7 @@ foreach($historicalData1 as &$value){
 });
 </script>
 
-<div id="chart2" style="margin-top:0px; margin-left:0px; width:800px; height:300px;"></div>
+<div id="chart2" style="margin-top:0px; margin-left:0px; width:900px; height:300px;"></div>
 <script class="code" type="text/javascript">
 $(document).ready(function(){
 	var line2 = [<?php
@@ -145,7 +148,7 @@ foreach($historicalData2 as &$value){
 });
 </script>
 
-<div id="chart3" style="margin-top:0px; margin-left:0px; width:800px; height:300px;"></div>
+<div id="chart3" style="margin-top:0px; margin-left:0px; width:900px; height:300px;"></div>
 <script class="code" type="text/javascript">
 $(document).ready(function(){
 	var line3 = [<?php
@@ -174,6 +177,39 @@ foreach($historicalData3 as &$value){
 	});
 });
 </script>
+
+<div id="chart4" style="margin-top:0px; margin-left:0px; width:900px; height:300px;"></div>
+<script class="code" type="text/javascript">
+$(document).ready(function(){
+        var line4 = [<?php
+foreach($historicalData4 as &$value){
+    $currentstr = "['" . date_format($value->getDate(), 'Y-n-j h:iA') . "'," . $value->getClose() . "]";
+    echo $currentstr;
+        if($value != end($historicalData4)){
+            echo(",");
+    }
+}
+?>];
+        var plot2 = $.jqplot ('chart4', [line4], {
+                title:'1 Year',
+                animate: true,
+                series:[{showMarker:false}],
+                axes:{
+                        xaxis:{
+                                label:'Date',
+                                renderer:$.jqplot.DateAxisRenderer,
+                                tickOptions:{formatString:'%b %#d'}
+                        },
+                        yaxis:{
+                                label:'Share Value In Own Currency'
+                        }
+                }
+        });
+});
+</script>
+
+
+
 All values are closing values on the dates specified<br>
 <img src="virtucon.png" width="75" height="75" alt="Virtucon Industries" align="middle">
 © Virtucon Industries 1997-2018
